@@ -1,5 +1,5 @@
 import User from "../../models/User.model";
 
-export async function listUserService() {
+export const listUserService = async () => {
   return await User.find();
-}
+};

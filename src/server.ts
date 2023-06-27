@@ -9,7 +9,7 @@ const PORT = 3000;
       "mongodb+srv://makson:2lLRFTTjNwfXYeg3@cluster0.bhqd1j5.mongodb.net/?retryWrites=true&w=majority"
     )
     .then(() => console.log("Mongoose connected"))
-    .catch(() => console.log("Mongoose error"));
+    .catch((error) => console.log("Mongoose error", error));
 
   app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);

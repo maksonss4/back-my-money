@@ -1,14 +1,15 @@
 import { IUserCreate } from "../../interfaces/users.interfaces";
 import User from "../../models/User.model";
 
-export async function createUserService({
+export const createUserService = async ({
   age,
   name,
   lastName,
   password,
   email,
-}: IUserCreate) {
+}: IUserCreate) => {
   const newUser = await User.create({ age, name, lastName, password, email });
+  newUser.password = undefined;
 
   return newUser;
-}
+};
