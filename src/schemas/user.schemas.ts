@@ -1,17 +1,22 @@
 import * as yup from "yup";
 import bcrypt from "bcrypt";
-// import { IUserCreate } from "../interfaces/users.interfaces";
 
 export const userCreateScheama = yup.object().shape({
   email: yup
     .string()
-    .email()
     .required()
+    .email()
     .transform((_: string, originalValue: string) =>
       originalValue.toLowerCase().trim()
     ),
-  name: yup.string().required(),
-  lastName: yup.string().required(),
+  name: yup
+    .string()
+    .transform((_: string, originalValue: string) => originalValue.trim())
+    .required(),
+  lastName: yup
+    .string()
+    .transform((_: string, originalValue: string) => originalValue.trim())
+    .required(),
   age: yup.number().required(),
   password: yup
     .string()
@@ -19,4 +24,15 @@ export const userCreateScheama = yup.object().shape({
     .transform((_: string, originalValue: string) =>
       bcrypt.hashSync(originalValue, 10)
     ),
+});
+
+export const userLoginSchema = yup.object().shape({
+  email: yup
+    .string()
+    .required()
+    .email()
+    .transform((_: string, originalValue: string) =>
+      originalValue.toLowerCase().trim()
+    ),
+  password: yup.string().required(),
 });
