@@ -13,7 +13,7 @@ import { verifyIsValidMongoId } from "../middlewares/verifyIsValidMongoId.middle
 
 export const transactionRoutes = Router();
 
-transactionRoutes.get("", listTransactionController);
+transactionRoutes.get("", verifyAuthTokenMiddleware, listTransactionController);
 transactionRoutes.post(
   "/:id", // wallet id
   verifyAuthTokenMiddleware,
