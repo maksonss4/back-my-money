@@ -9,13 +9,15 @@ import { verifyOwnerWalletMiddleware } from "../middlewares/verifyOwnerWallet.mi
 import { verifyWalletExistsMiddleware } from "../middlewares/verifyWalletExists.middleware";
 import { transactionCreateSchema } from "../schemas/transaction.schemas";
 import { createTransactionController } from "../controllers/transaction/createTransaction.controller";
+import { verifyIsValidMongoId } from "../middlewares/verifyIsValidMongoId.middleware";
 
 export const transactionRoutes = Router();
 
 transactionRoutes.get("", listTransactionController);
 transactionRoutes.post(
-  "/:walletId",
+  "/:id", // wallet id
   verifyAuthTokenMiddleware,
+  verifyIsValidMongoId,
   verifyWalletExistsMiddleware,
   verifyOwnerWalletMiddleware,
   validateSerializerMiddleware(transactionCreateSchema),

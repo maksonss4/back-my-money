@@ -8,12 +8,7 @@ export const verifyWalletExistsMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const walletId = req.params.walletId;
-  const isValidId = ObjectId.isValid(walletId);
-
-  if (!isValidId) {
-    throw new AppError("Id invalido");
-  }
+  const walletId = req.params.id;
 
   const wallet = await Wallet.findOne({ _id: walletId });
 
