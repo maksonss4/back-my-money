@@ -17,7 +17,10 @@ export const userCreateScheama = yup.object().shape({
     .string()
     .transform((_: string, originalValue: string) => originalValue.trim())
     .required(),
-  age: yup.number().required(),
+  age: yup
+    .number()
+    .required()
+    .positive("O campo value deve ser um número positivo"),
   password: yup
     .string()
     .required()

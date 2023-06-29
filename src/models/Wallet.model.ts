@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-import { transactionSchema } from "./Transaction.model";
 
 const walletSchema = new Schema(
   {
@@ -8,8 +7,54 @@ const walletSchema = new Schema(
       required: true,
     },
     name: String,
-    gastos: [transactionSchema],
-    ganhos: [transactionSchema],
+    moneyIn: [
+      {
+        type: {
+          type: String,
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        value: {
+          type: Number,
+          required: true,
+        },
+        description: {
+          type: String,
+          required: true,
+        },
+        transactionDate: {
+          type: Date,
+          require: true,
+        },
+      },
+    ],
+    moneyOut: [
+      {
+        type: {
+          type: String,
+          required: true,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        value: {
+          type: Number,
+          required: true,
+        },
+        description: {
+          type: String,
+          required: true,
+        },
+        transactionDate: {
+          type: Date,
+          require: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
