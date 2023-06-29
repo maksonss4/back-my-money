@@ -15,13 +15,8 @@ export const validateSerializerMiddleware =
           stripUnknown: true,
         });
 
-        const values = Object.values(validatedData);
-        if (values.length <= 1) {
-          return res.status(401).json({ message: "Body vazio" });
-        }
-
         // adicionamos uma nova chave a requisição, com os dados validados do usuario. Precisamos adicionar ao Request, o tipo da chave que estamos adicionando aqui no middleware. Na pasta @types/express, no arquivo index.d.ts, vamos adicionar a chave a tipagem do express:
-        req.body = validatedData;
+        req.validatedBody = validatedData;
 
         next();
       } catch (err: any) {

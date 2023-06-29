@@ -23,7 +23,7 @@ export const loginUserService = async ({ email, password }: IUserLogin) => {
   delete user.password;
 
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET!, {
-    expiresIn: "15m",
+    expiresIn: "7d",
   });
 
   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET!, {
