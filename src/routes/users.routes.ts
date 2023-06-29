@@ -5,10 +5,11 @@ import { validateSerializerMiddleware } from "../middlewares/validateSerializer.
 import { userCreateScheama, userLoginSchema } from "../schemas/user.schemas";
 import { emailAlreadyRegisteredMiddleware } from "../middlewares/emailAlreadyRegistered.middleware";
 import { loginUserController } from "../controllers/user/loginUser.controller";
+import { verifyAuthTokenMiddleware } from "../middlewares/verifyAuthToken.middleware";
 
 export const userRoutes = Router();
 
-userRoutes.get("", listUserController);
+userRoutes.get("", verifyAuthTokenMiddleware, listUserController);
 
 userRoutes.post(
   "",
