@@ -1,11 +1,18 @@
 require("dotenv").config();
 import { AppError } from "../../error";
-import { IUserLogin } from "../../interfaces/users.interfaces";
 import User from "../../models/User.model";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const loginUserService = async ({ email, password }: IUserLogin) => {
+interface ILoginUserService {
+  password: string;
+  email: string;
+}
+
+export const loginUserService = async ({
+  email,
+  password,
+}: ILoginUserService) => {
   const userExists = await User.findOne({ email }).select("+password");
 
   if (!userExists) {

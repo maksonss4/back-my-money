@@ -1,12 +1,17 @@
 import { AppError } from "../../error";
-import { IWalletCreate } from "../../interfaces/wallets.interfaces";
 import Wallet from "../../models/Wallet.model";
+
+interface ICreateWalletService {
+  name: string;
+  userId: string;
+  isPremium: boolean;
+}
 
 export const createWalletService = async ({
   name,
   userId,
   isPremium,
-}: IWalletCreate) => {
+}: ICreateWalletService) => {
   const wallets = await Wallet.find({ userId });
 
   if (wallets.length >= 1 && !isPremium) {
