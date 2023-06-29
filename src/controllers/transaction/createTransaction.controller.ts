@@ -5,7 +5,7 @@ export const createTransactionController = async (
   req: Request,
   res: Response
 ) => {
-  const walletId = req.params.walletId;
+  const walletId = req.params.id;
   const { name, value, description, type, transactionDate } = req.validatedBody;
   const newTransaction = await createTransactionService({
     walletId,

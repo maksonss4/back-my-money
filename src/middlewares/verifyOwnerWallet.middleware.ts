@@ -7,9 +7,8 @@ export const verifyOwnerWalletMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const walletId = req.params.walletId;
+  const walletId = req.params.id;
   const userId = req.userId;
-
   const wallet = await Wallet.findOne({ _id: walletId });
 
   if (wallet!.userId !== userId) {
