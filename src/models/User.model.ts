@@ -1,6 +1,4 @@
-import mongoose from "mongoose";
-
-const { Schema, model } = mongoose;
+import { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
   {
@@ -24,7 +22,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       require: true,
-      select: false, // não será retornado nas consultas
+      select: false,
     },
     isPremium: {
       type: Boolean,
@@ -32,7 +30,7 @@ const userSchema = new Schema(
     },
   },
   {
-    timestamps: true, // Ativa os timestamps automáticos
+    timestamps: true,
   }
 );
 
