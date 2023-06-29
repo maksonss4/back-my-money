@@ -1,5 +1,11 @@
 import Wallet from "../../models/Wallet.model";
 
-export const listWalletService = async () => {
-  return await Wallet.find();
+interface IListWalletService {
+  userId: string;
+}
+
+export const listWalletService = async ({ userId }: IListWalletService) => {
+  const wallets = await Wallet.find({ userId });
+
+  return wallets;
 };

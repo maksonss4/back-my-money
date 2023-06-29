@@ -7,7 +7,7 @@ import { walletCreateScheama } from "../schemas/wallet.schemas";
 
 export const walletsRoutes = Router();
 
-walletsRoutes.get("", listWalletController);
+walletsRoutes.get("", verifyAuthTokenMiddleware, listWalletController);
 walletsRoutes.post(
   "",
   verifyAuthTokenMiddleware,
