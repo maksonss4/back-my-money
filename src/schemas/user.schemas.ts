@@ -39,3 +39,31 @@ export const userLoginSchema = yup.object().shape({
     ),
   password: yup.string().required(),
 });
+
+export const userUpdateScheama = yup.object().shape({
+  email: yup
+    .string()
+    .email()
+    .transform((_: string, originalValue: string) =>
+      originalValue.toLowerCase().trim()
+    )
+    .notRequired(),
+  name: yup
+    .string()
+    .transform((_: string, originalValue: string) => originalValue.trim())
+    .notRequired(),
+  lastName: yup
+    .string()
+    .transform((_: string, originalValue: string) => originalValue.trim())
+    .notRequired(),
+  age: yup
+    .number()
+    .notRequired()
+    .positive("O campo value deve ser um número positivo"),
+  password: yup
+    .string()
+    .notRequired()
+    .transform((_: string, originalValue: string) =>
+      bcrypt.hashSync(originalValue, 10)
+    ),
+});
