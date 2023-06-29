@@ -14,8 +14,10 @@ import { updateUserController } from "../controllers/user/updateUser.controller"
 
 export const userRoutes = Router();
 
+// Listar usuário dono do token
 userRoutes.get("", verifyAuthTokenMiddleware, listUserController);
 
+// Criar usuário
 userRoutes.post(
   "",
   validateSerializerMiddleware(userCreateScheama),
@@ -23,12 +25,14 @@ userRoutes.post(
   createUserController
 );
 
+// Login do usuário
 userRoutes.post(
   "/login",
   validateSerializerMiddleware(userLoginSchema),
   loginUserController
 );
 
+// Atualizar dados do usuário
 userRoutes.patch(
   "",
   verifyAuthTokenMiddleware,

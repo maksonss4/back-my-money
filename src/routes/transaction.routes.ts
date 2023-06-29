@@ -10,8 +10,10 @@ import { verifyIsValidMongoId } from "../middlewares/verifyIsValidMongoId.middle
 
 export const transactionRoutes = Router();
 
+// listar as transações por carteira do usuário dono do token
 transactionRoutes.get("", verifyAuthTokenMiddleware, listTransactionController);
 
+// Criar transação em uma carteira do dono do token
 transactionRoutes.post(
   "/:id", // wallet id
   verifyAuthTokenMiddleware,
