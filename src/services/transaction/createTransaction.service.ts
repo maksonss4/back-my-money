@@ -1,7 +1,10 @@
+import { AppError } from "../../error";
 import Wallet from "../../models/Wallet.model";
+import Transaction from "../../models/Transaction.model";
 
 interface ICreateTransactionService {
   walletId: string;
+  userId: string;
   name: string;
   value: number;
   description: string;
@@ -16,13 +19,26 @@ export const createTransactionService = async ({
   value,
   transactionDate,
   walletId,
+  userId,
 }: ICreateTransactionService) => {
-  const data = { description, name, type, value, transactionDate };
+  value = type === "out" ? value * -1 : value;
   const wallet = await Wallet.findOne({ _id: walletId });
 
-  type === "out" ? wallet!.moneyOut.push(data) : wallet!.moneyIn.push(data);
+  if (!wallet) throw new AppError("Wallet não existe");
 
-  wallet!.save();
+  const newTransaction = await Transaction.create({
+    userId,
+    walletId,
+    type,
+    name,
+    value,
+    description,
+    transactionDate,
+  });
 
-  return data;
+  wallet.transactions.push(newTransaction);
+
+  wallet.save();
+
+  return newTransaction;
 };

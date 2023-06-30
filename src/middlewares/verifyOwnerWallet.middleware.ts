@@ -7,7 +7,7 @@ export const verifyOwnerWalletMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const walletId = req.params.id;
+  const walletId = req.params.walletId;
   const userId = req.userId;
   const wallet = await Wallet.findOne({ _id: walletId });
 

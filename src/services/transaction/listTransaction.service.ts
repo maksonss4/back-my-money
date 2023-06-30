@@ -1,21 +1,11 @@
-import Wallet from "../../models/Wallet.model";
+import Transaction from "../../models/Transaction.model";
 
 interface IListTransaction {
   userId: string;
 }
 
 export const listTransactionService = async ({ userId }: IListTransaction) => {
-  const wallets = await Wallet.find({ userId });
-
-  const transactions = wallets.map((wallet) => {
-    const transaction = {
-      walletId: wallet._id,
-      moneyIn: wallet.moneyIn,
-      moneyOut: wallet.moneyOut,
-    };
-
-    return transaction;
-  });
+  const transactions = await Transaction.find({ userId });
 
   return transactions;
 };

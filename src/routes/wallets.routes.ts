@@ -7,7 +7,6 @@ import {
   walletCreateScheama,
   walletUpdateScheama,
 } from "../schemas/wallet.schemas";
-import { verifyIsValidMongoId } from "../middlewares/verifyIsValidMongoId.middleware";
 import { verifyWalletExistsMiddleware } from "../middlewares/verifyWalletExists.middleware";
 import { verifyOwnerWalletMiddleware } from "../middlewares/verifyOwnerWallet.middleware";
 import { updateWalletController } from "../controllers/wallet/updateWallet.middleware";
@@ -27,9 +26,8 @@ walletsRoutes.post(
 
 // atualizar wallet
 walletsRoutes.patch(
-  "/:id", // wallet id
+  "/:walletId", // wallet id
   verifyAuthTokenMiddleware,
-  verifyIsValidMongoId,
   verifyWalletExistsMiddleware,
   verifyOwnerWalletMiddleware,
   validateSerializerMiddleware(walletUpdateScheama),
