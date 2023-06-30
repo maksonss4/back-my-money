@@ -19,3 +19,25 @@ export const transactionCreateSchema = yup.object().shape({
   description: yup.string().required(),
   transactionDate: yup.date().required(),
 });
+
+export const transactionUpdateSchema = yup.object().shape({
+  name: yup
+    .string()
+    .transform((_, originalValue) => originalValue.trim())
+    .notRequired(),
+  type: yup
+    .string()
+    .transform((_, originalValue) => originalValue.trim())
+    .test(
+      "valid-type",
+      "O campo type deve ser 'in' ou 'out'",
+      (value) => value === undefined || ["in", "out"].includes(value)
+    )
+    .notRequired(),
+  value: yup
+    .number()
+    .positive("O campo value deve ser um número positivo")
+    .notRequired(),
+  description: yup.string().notRequired(),
+  transactionDate: yup.date().notRequired(),
+});
