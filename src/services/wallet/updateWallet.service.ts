@@ -1,3 +1,4 @@
+import { AppError } from "../../error";
 import Wallet from "../../models/Wallet.model";
 
 interface IUpdateWallet {
@@ -11,11 +12,11 @@ export const updateWalletService = async ({
 }: IUpdateWallet) => {
   const wallet = await Wallet.findOne({ _id: walletId });
 
-  if (name) {
-    wallet!.name = name;
-  }
+  if (!wallet) throw new AppError("Wallet not found");
 
-  wallet!.save();
+  if (name) wallet.name = name;
+
+  await wallet.save();
 
   return wallet;
 };

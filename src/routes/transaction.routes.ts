@@ -10,6 +10,7 @@ import {
 } from "../schemas/transaction.schemas";
 import { createTransactionController } from "../controllers/transaction/createTransaction.controller";
 import { updateTransactionController } from "../controllers/transaction/updateTransaction.controller";
+import { deleteTransactionController } from "../controllers/transaction/deleteTransaction.controller";
 
 export const transactionRoutes = Router();
 
@@ -28,10 +29,15 @@ transactionRoutes.post(
 
 // Atualizar dados da transação
 transactionRoutes.patch(
-  "/:walletId/:transactionId",
+  "/:transactionId",
   verifyAuthTokenMiddleware,
-  verifyWalletExistsMiddleware,
-  verifyOwnerWalletMiddleware,
   validateSerializerMiddleware(transactionUpdateSchema),
   updateTransactionController
+);
+
+// Deletar transação
+transactionRoutes.delete(
+  "/:transactionId",
+  verifyAuthTokenMiddleware,
+  deleteTransactionController
 );

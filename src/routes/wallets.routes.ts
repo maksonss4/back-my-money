@@ -10,6 +10,7 @@ import {
 import { verifyWalletExistsMiddleware } from "../middlewares/verifyWalletExists.middleware";
 import { verifyOwnerWalletMiddleware } from "../middlewares/verifyOwnerWallet.middleware";
 import { updateWalletController } from "../controllers/wallet/updateWallet.middleware";
+import { deleteWalletController } from "../controllers/wallet/deleteWallet.controller";
 
 export const walletsRoutes = Router();
 
@@ -32,4 +33,13 @@ walletsRoutes.patch(
   verifyOwnerWalletMiddleware,
   validateSerializerMiddleware(walletUpdateScheama),
   updateWalletController
+);
+
+// deletar wallet
+walletsRoutes.delete(
+  "/:walletId",
+  verifyAuthTokenMiddleware,
+  verifyWalletExistsMiddleware,
+  verifyOwnerWalletMiddleware,
+  deleteWalletController
 );

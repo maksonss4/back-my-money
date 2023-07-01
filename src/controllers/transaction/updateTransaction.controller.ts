@@ -5,11 +5,12 @@ export const updateTransactionController = async (
   req: Request,
   res: Response
 ) => {
-  const { walletId, transactionId } = req.params;
+  const { transactionId } = req.params;
+  const userId = req.userId;
   const { name, type, value, description, transactionDate } = req.validatedBody;
   const transactionUpdated = await updateTransactionService({
+    userId,
     transactionId,
-    walletId,
     name,
     type,
     value,

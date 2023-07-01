@@ -4,8 +4,8 @@ import Transaction from "../../models/Transaction.model";
 import { AppError } from "../../error";
 
 interface IUpdateTransactionService {
-  walletId: string;
   transactionId: string;
+  userId: string;
   name: string;
   type: string;
   value: number;
@@ -14,27 +14,28 @@ interface IUpdateTransactionService {
 }
 
 export const updateTransactionService = async ({
-  walletId,
   transactionId,
   description,
   name,
   type,
   value,
   transactionDate,
+  userId,
 }: IUpdateTransactionService) => {
   const isValidId = ObjectId.isValid(transactionId);
 
-  if (!isValidId) {
-    throw new AppError("Id transaction invalido");
-  }
-
-  const wallet = await Wallet.findOne({ _id: walletId });
-
-  if (!wallet) throw new AppError("Wallet não existe");
+  if (!isValidId) throw new AppError("Id transaction invalido");
 
   const transaction = await Transaction.findOne({ _id: transactionId });
 
   if (!transaction) throw new AppError("transaction não existe");
+
+  if (transaction.userId !== userId)
+    throw new AppError("Dono do token não é dono da transaction");
+
+  const wallet = await Wallet.findOne({ _id: transaction.walletId });
+
+  if (!wallet) throw new AppError("Wallet não existe");
 
   if (description) transaction.description = description;
   if (name) transaction.name = name;
@@ -50,8 +51,8 @@ export const updateTransactionService = async ({
   wallet.transactions.splice(index, 1);
   wallet.transactions.push(transaction);
 
-  transaction.save();
-  wallet.save();
+  await transaction.save();
+  await wallet.save();
 
   return transaction;
 };

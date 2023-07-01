@@ -38,7 +38,7 @@ export const createTransactionService = async ({
 
   wallet.transactions.push(newTransaction);
 
-  wallet.save();
+  await wallet.save();
 
   return newTransaction;
 };

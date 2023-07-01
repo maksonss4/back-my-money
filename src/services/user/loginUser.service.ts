@@ -15,17 +15,13 @@ export const loginUserService = async ({
 }: ILoginUserService) => {
   const userExists = await User.findOne({ email }).select("+password");
 
-  if (!userExists) {
-    throw new AppError("wrong email or password", 404);
-  }
+  if (!userExists) throw new AppError("wrong email or password", 404);
 
   const user = userExists.toObject();
   const encryptedPassword = user.password!;
   const isPasswordCorrect = await bcrypt.compare(password, encryptedPassword);
 
-  if (!isPasswordCorrect) {
-    throw new AppError("wrong email or password", 404);
-  }
+  if (!isPasswordCorrect) throw new AppError("wrong email or password", 404);
 
   delete user.password;
 
