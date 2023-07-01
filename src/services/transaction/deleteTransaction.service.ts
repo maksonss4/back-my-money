@@ -36,6 +36,4 @@ export const deleteTransactionService = async ({
   await wallet.save();
 
   await Transaction.deleteOne({ _id: transactionId });
-
-  return true;
 };

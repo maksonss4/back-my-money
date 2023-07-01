@@ -16,6 +16,4 @@ export const deleteWalletService = async ({
   await Transaction.deleteMany({ walletId });
 
   await Wallet.deleteOne({ _id: walletId });
-
-  return true;
 };

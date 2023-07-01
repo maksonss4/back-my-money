@@ -11,6 +11,7 @@ import { emailAlreadyRegisteredMiddleware } from "../middlewares/emailAlreadyReg
 import { loginUserController } from "../controllers/user/loginUser.controller";
 import { verifyAuthTokenMiddleware } from "../middlewares/verifyAuthToken.middleware";
 import { updateUserController } from "../controllers/user/updateUser.controller";
+import { deleteUserController } from "../controllers/user/deleteUser.controller";
 
 export const userRoutes = Router();
 
@@ -39,3 +40,6 @@ userRoutes.patch(
   validateSerializerMiddleware(userUpdateScheama),
   updateUserController
 );
+
+// Deletar usuário (apagar conta)
+userRoutes.delete("", verifyAuthTokenMiddleware, deleteUserController);
