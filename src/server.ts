@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const PORT = 3000;
 
 (async () => {
-  mongoose
+  await mongoose
     .connect(
       "mongodb+srv://makson:2lLRFTTjNwfXYeg3@cluster0.bhqd1j5.mongodb.net/?retryWrites=true&w=majority"
     )
