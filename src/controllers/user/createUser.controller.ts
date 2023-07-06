@@ -11,5 +11,5 @@ export const createUserController = async (req: Request, res: Response) => {
     password,
   });
 
-  return res.json({ created: true, newUser });
+  return res.status(201).json({ created: true, newUser });
 };

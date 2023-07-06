@@ -7,7 +7,6 @@ import {
   userLoginSchema,
   userUpdateScheama,
 } from "../schemas/user.schemas";
-import { emailAlreadyRegisteredMiddleware } from "../middlewares/emailAlreadyRegistered.middleware";
 import { loginUserController } from "../controllers/user/loginUser.controller";
 import { verifyAuthTokenMiddleware } from "../middlewares/verifyAuthToken.middleware";
 import { updateUserController } from "../controllers/user/updateUser.controller";
@@ -22,7 +21,6 @@ userRoutes.get("", verifyAuthTokenMiddleware, listUserController);
 userRoutes.post(
   "",
   validateSerializerMiddleware(userCreateScheama),
-  emailAlreadyRegisteredMiddleware,
   createUserController
 );
 

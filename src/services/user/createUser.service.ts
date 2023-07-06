@@ -1,3 +1,4 @@
+import { AppError } from "../../error";
 import User from "../../models/User.model";
 
 export interface ICreateUserService {
@@ -15,6 +16,14 @@ export const createUserService = async ({
   password,
   email,
 }: ICreateUserService) => {
+  const newEmail = email;
+
+  const existingUser = await User.findOne({ email: newEmail });
+
+  if (existingUser) {
+    throw new AppError("Email already registered");
+  }
+
   const newUser = await User.create({ age, name, lastName, password, email });
   newUser.password = undefined;
 

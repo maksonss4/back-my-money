@@ -1,5 +1,5 @@
 export const userCreateMock = {
-  email: "chico@mail.com",
+  email: "chIco@mail.com",
   name: "Chico",
   lastName: "Bento",
   age: 20,
